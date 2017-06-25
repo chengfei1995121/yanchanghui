@@ -14,7 +14,7 @@ class zhanhui(scrapy.Spider):
         while(n<=6):
             s=str(n);
             print type(s)
-            formdata={'ctl':'体育比赛','currPage':s}
+            formdata={'ctl':'演唱会','currPage':s}
             yield FormRequest(link, callback=self.parse, formdata=formdata)
             n=n+1
     def parse(self, response):
