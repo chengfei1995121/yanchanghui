@@ -47,7 +47,10 @@ class zhanhui(scrapy.Spider):
             content=response.xpath("//div[@class='pre']/p/text()").extract()
             for i in content:
                 ssss=ssss+i;
-            ssss.replace(' ','');
-            ssss.replace('\n','');
-            print ssss.encode("GB18030");
-            print item['title'],item['stime'],item['etime']
+            ssss.replace("space","");
+            ssss.replace("\n","");
+            #print ssss.encode("GB18030");
+            hot=response.xpath("//div[@class='m-goods']/h2[@class='tt']/a/span[@class=num]/text()").extract()
+            for i in hot:
+                print i.encode("GB18030");
+            #print item['title'],item['stime'],item['etime']
