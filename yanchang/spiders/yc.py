@@ -43,5 +43,11 @@ class zhanhui(scrapy.Spider):
                 item['city']=i[-3:-1]
             item['yc1']='1'
             item['chengren']='1'
-            
+            ssss='';
+            content=response.xpath("//div[@class='pre']/p/text()").extract()
+            for i in content:
+                ssss=ssss+i;
+            ssss.replace(' ','');
+            ssss.replace('\n','');
+            print ssss.encode("GB18030");
             print item['title'],item['stime'],item['etime']
