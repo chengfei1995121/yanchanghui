@@ -18,3 +18,7 @@ class YanchangItem(scrapy.Item):
     yc1=scrapy.Field()
     chengren=scrapy.Field()
     etime=scrapy.Field()
+    dazong=scrapy.Field()
+    shi=scrapy.Field()
+    lishi=scrapy.Field()
+    hot=scrapy.Field()

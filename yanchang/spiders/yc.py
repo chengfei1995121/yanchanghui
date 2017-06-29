@@ -24,10 +24,11 @@ class zhanhui(scrapy.Spider):
             url="http://piao.damai.cn/"
             site=str(i["projectid"])
             url=url+site+".html"
-            yield Request(url,callback=self.parse_next)
+            yield Request(url,meta={'url':site},callback=self.parse_next)
 
     def  parse_next(self,response):
         item=YanchangItem()
+        url="https://piao.damai.cn/ajax/initPage/"+response.meta['url']+"?t=1498729230816"
         for sel in response.xpath("//div[@class='m-goods']"):
             title=sel.xpath("h2/span/text()").extract()
             for i in title:
@@ -43,6 +44,8 @@ class zhanhui(scrapy.Spider):
                 item['city']=i[-3:-1]
             item['yc1']='1'
             item['chengren']='1'
+            item['dazong']='1'
+            item['shi']='1'
             ssss='';
             content=response.xpath("//div[@class='pre']/p/text()").extract()
             for i in content:
@@ -53,4 +56,18 @@ class zhanhui(scrapy.Spider):
             hot=response.xpath("//div[@class='m-goods']/h2[@class='tt']/a/span[@class=num]/text()").extract()
             for i in hot:
                 print i.encode("GB18030");
-            #print item['title'],item['stime'],item['etime']
+            item['lishi']='1'
+        yield Request(url,meta={'item':item},callback=self.flower)
+    def flower(self,response):
+        item=response.meta['item'];
+        jsonbody=json.loads(response.body)
+        hua=jsonbody['Data']['flowerInfo']
+        hnum=hua['count']
+        if hnum>50:
+            item['hot']=3
+        else:
+            if hnum>20:
+                item['hot']=2
+            else:
+                item['hot']=1
+        yield item

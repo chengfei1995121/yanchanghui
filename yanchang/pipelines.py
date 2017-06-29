@@ -47,8 +47,8 @@ class MySQLyanchangPipeline(object):
             if n:
                 print "yes"
             else:"""
-            sql = "insert into infotable(事件名称,开始日期,结束日期,举办城市,主要影响成人,是否是演唱会) values(%s,%s,%s,%s,%s,%s)"
-            params = (item['title'],item['time'],item['time'],item['city'],item['chengren'],item['yc1'])
+            sql = "insert into infotable(事件名称,开始日期,结束日期,举办城市,主要影响成人,是否是演唱会,是否影响社会大众,最大影响全市,事件历史悠久程度,事件热度) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            params = (item['title'],item['stime'],item['etime'],item['city'],item['chengren'],item['yc1'],item['dazong'],item['shi'],item['lishi'],item['hot'])
             conn.execute(sql,params)
     #异常处理
     """def _handle_error(self, failue, item, spider):
